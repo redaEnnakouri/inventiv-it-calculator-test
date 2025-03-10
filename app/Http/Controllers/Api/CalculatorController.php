@@ -23,6 +23,8 @@ class CalculatorController extends Controller
         try {
             $result = $calculatorInterface->calculate($request->validated());
             return response()->json(['result' => $result]);
+        } catch (\DivisionByZeroError $e) {
+            return response()->json(['message' => 'Division par zéro impossible'], 400);
         } catch (Exception $e) {
             return back()->withErrors(['error' => $e->getMessage()]);
         }

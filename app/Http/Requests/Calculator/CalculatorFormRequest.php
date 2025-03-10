@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests\Calculator;
 
+use App\Enums\Calculator\OperatorsEnum;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class CalculatorFormRequest extends FormRequest
 {
@@ -25,7 +27,7 @@ class CalculatorFormRequest extends FormRequest
         return [
             'num1' => 'required|numeric',
             'num2' => 'required|numeric',
-            'operation' => 'required|in:add,subtract,multiply,divide'
+            'operation' => ['required', new Enum(OperatorsEnum::class)]
         ];
     }
 
